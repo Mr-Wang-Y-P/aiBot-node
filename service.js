@@ -6,7 +6,6 @@ import multer from 'multer';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import fs from 'fs';
-import { type } from 'os';
 
 // 配置环境变量
 dotenv.config();
@@ -79,6 +78,9 @@ const AI_MODELS = {
   },
 };
 
+app.get('/', (req, res) => {
+  res.send('欢迎使用 AI 聊天服务器！');
+});
 // 获取可用模型列表
 app.get('/api/models', (req, res) => {
   const modelList = Object.keys(AI_MODELS).map(key => ({
