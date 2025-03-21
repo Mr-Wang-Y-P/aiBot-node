@@ -69,7 +69,7 @@ const AI_MODELS = {
     model: 'nvidia/llama-3.1-nemotron-70b-instruct:free',
     type: 'openrouter',
   },
-  'openrouter-Qwen2.5 72B': {
+  'openrouter-Qwen2.5': {
     name: 'Qwen2.5 72B Instruct',
     apiKey: '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',
     endpoint: 'https://openrouter.ai/api/v1/chat/completions',
@@ -93,7 +93,7 @@ app.get('/api/models', (req, res) => {
 // 处理聊天请求
 app.post("/api/chat", async (req, res) => {
     try {
-      const { modelId, messages } = req.body
+      const { modelId, messages, inputApiKey } = req.body
   
       if (!modelId || !AI_MODELS[modelId]) {
         return res.status(400).json({ error: "无效的模型ID" })
@@ -113,7 +113,7 @@ app.post("/api/chat", async (req, res) => {
       }
   
       if (modelConfig.type === "openrouter") {
-        headers["Authorization"] = `Bearer ${modelConfig.apiKey}`
+        headers["Authorization"] = `Bearer ${inputApiKey}`
         requestBody = {
           model: modelConfig.model,
           messages,
