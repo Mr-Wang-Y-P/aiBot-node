@@ -43,35 +43,35 @@ app.use(express.json());
 const AI_MODELS = {
   'openrouter-deepseek': {
     name: 'DeepSeek ChatV3',
-    apiKey: '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',
+    apiKey: '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',
     endpoint: 'https://openrouter.ai/api/v1/chat/completions',
     model: 'deepseek/deepseek-chat:free',
     type: 'openrouter',
   },
   'openrouter-google/gemini-2.0-flash': {
     name: 'Google/gemini-2.0-flash',
-    apiKey: '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',
+    apiKey: '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',
     endpoint: 'https://openrouter.ai/api/v1/chat/completions',
     model: 'google/gemini-2.0-flash-thinking-exp:free',
     type: 'openrouter',
   },
   'openrouter-deepseek70B': {
     name: 'DeepSeek70B',
-    apiKey: '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',
+    apiKey: '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',
     endpoint: 'https://openrouter.ai/api/v1/chat/completions',
     model: 'deepseek/deepseek-r1-distill-llama-70b:free',
     type: 'openrouter',
   },
   'openrouter-Nvidia': {
     name: 'Nvidia/llama-3.1-nemotron-70b',
-    apiKey: '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',
+    apiKey: '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',
     endpoint: 'https://openrouter.ai/api/v1/chat/completions',
     model: 'nvidia/llama-3.1-nemotron-70b-instruct:free',
     type: 'openrouter',
   },
   'openrouter-Qwen2.5 72B': {
     name: 'Qwen2.5 72B Instruct',
-    apiKey: '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',
+    apiKey: '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',
     endpoint: 'https://openrouter.ai/api/v1/chat/completions',
     model: 'qwen/qwen-2.5-72b-instruct:free',
     type: 'openrouter',
@@ -126,7 +126,6 @@ app.post("/api/chat", async (req, res) => {
         headers,
         body: JSON.stringify(requestBody),
       })
-  
       if (!aiResponse.ok) {
         const errorText = await aiResponse.text()
         console.error("AI提供商错误:", errorText)
