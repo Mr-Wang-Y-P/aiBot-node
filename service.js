@@ -2,10 +2,10 @@ import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import { createServer } from 'http';
-import multer from 'multer';
-import path from 'path';
-import { fileURLToPath } from 'url';
-import fs from 'fs';
+// import multer from 'multer';
+// import path from 'path';
+// import { fileURLToPath } from 'url';
+// import fs from 'fs';
 
 // 配置环境变量
 dotenv.config();
@@ -19,25 +19,25 @@ app.use(cors());
 app.use(express.json());
 
 // 配置文件上传
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const uploadDir = path.join(__dirname, 'uploads');
+// const __dirname = path.dirname(fileURLToPath(import.meta.url));
+// const uploadDir = path.join(__dirname, 'uploads');
 
 // 确保上传目录存在
-if (!fs.existsSync(uploadDir)) {
-  fs.mkdirSync(uploadDir, { recursive: true });
-}
+// if (!fs.existsSync(uploadDir)) {
+//   fs.mkdirSync(uploadDir, { recursive: true });
+// }
 
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, uploadDir);
-  },
-  filename: function (req, file, cb) {
-    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
-    cb(null, file.fieldname + '-' + uniqueSuffix + path.extname(file.originalname));
-  }
-});
+// const storage = multer.diskStorage({
+//   destination: function (req, file, cb) {
+//     cb(null, uploadDir);
+//   },
+//   filename: function (req, file, cb) {
+//     const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
+//     cb(null, file.fieldname + '-' + uniqueSuffix + path.extname(file.originalname));
+//   }
+// });
 
-const upload = multer({ storage: storage });
+// const upload = multer({ storage: storage });
 
 // AI 模型配置
 const AI_MODELS = {
@@ -197,26 +197,26 @@ app.post("/api/chat", async (req, res) => {
   })
 
 // 文件上传端点
-app.post('/api/upload', upload.single('file'), (req, res) => {
-  try {
-    if (!req.file) {
-      return res.status(400).json({ error: '没有文件被上传' });
-    }
+// app.post('/api/upload', upload.single('file'), (req, res) => {
+//   try {
+//     if (!req.file) {
+//       return res.status(400).json({ error: '没有文件被上传' });
+//     }
     
-    const fileInfo = {
-      filename: req.file.filename,
-      originalname: req.file.originalname,
-      mimetype: req.file.mimetype,
-      size: req.file.size,
-      path: req.file.path
-    };
+//     const fileInfo = {
+//       filename: req.file.filename,
+//       originalname: req.file.originalname,
+//       mimetype: req.file.mimetype,
+//       size: req.file.size,
+//       path: req.file.path
+//     };
     
-    res.json({ success: true, file: fileInfo });
-  } catch (error) {
-    console.error('文件上传错误:', error);
-    res.status(500).json({ error: '文件上传失败' });
-  }
-});
+//     res.json({ success: true, file: fileInfo });
+//   } catch (error) {
+//     console.error('文件上传错误:', error);
+//     res.status(500).json({ error: '文件上传失败' });
+//   }
+// });
 
 // 启动服务器
 server.listen(PORT, () => {
